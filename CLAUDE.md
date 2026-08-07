@@ -7,7 +7,7 @@
 
 ## What this OS does
 
-PMOS turns five recurring PM jobs into 10-minute jobs:
+PMOS turns four recurring PM jobs into 10-minute jobs:
 
 | Skill | Job |
 |-------|-----|
@@ -15,7 +15,6 @@ PMOS turns five recurring PM jobs into 10-minute jobs:
 | /interview-synth | Raw transcript to a synthesis with verified quotes |
 | /xfn-update | Project state to a status update organized by team |
 | /exec-update | Project state to a 1-pager an exec reads in 2 min |
-| /review-panel | Any artifact to 7 parallel critic reviews in under 2 min |
 
 The OS also has a continuity layer (`primer.md`) that lets sessions pick up where they left off.
 
@@ -37,17 +36,15 @@ The brain (this file) routes every user request to one or more of these layers.
 
 When the user sends a message, route in this order:
 
-1. **Explicit slash command** (`/prd-draft`, `/interview-synth`, `/xfn-update`, `/exec-update`, `/review-panel`, `/endsession`, `/startsession`): load the matching skill or primer file. Run it.
+1. **Explicit slash command** (`/prd-draft`, `/interview-synth`, `/xfn-update`, `/exec-update`, `/endsession`, `/startsession`): load the matching skill or primer file. Run it.
 
 2. **Implicit skill match** (no slash, but the request fits a skill):
    - Words like "draft a PRD", "spec for", "product requirements": route to /prd-draft
    - Words like "synthesize these interviews", "what did users say", transcript paste: route to /interview-synth
    - Words like "status update", "weekly update", "what to tell eng/design/data", "update for [team]", "what should I tell [team]", "weekly recap": route to /xfn-update
    - Words like "exec summary", "1-pager for leadership", "tell the VP", "summarize for leadership", "context for [exec name]", "brief the leadership team": route to /exec-update
-   - Words like "review this", "critique", "what's wrong with this draft", "feedback on this", "tear this apart": route to /review-panel
 
 3. **Precedence when multiple skills match in one request**:
-   - /review-panel always wins when "review", "critique", or "feedback" appears alongside another skill keyword. Reason: the user is asking to evaluate an existing artifact, not produce a new one.
    - /exec-update beats /xfn-update when "leadership", "exec", "VP", or a known C-level name appears. Reason: audience determines skill.
    - When two skills still tie after these rules, fall to step 5.
 
@@ -151,9 +148,4 @@ If a user asks for something outside v1 scope, say so plainly and offer the clos
 
 ---
 
-## Working agreements
 
-- Designate one owner for CLAUDE.md. All edits reviewed before merging.
-- Every skill ships with three files. No exceptions.
-- The 3-file pattern is sacred. Don't skip the validator.
-- Test each skill end-to-end before marking v1 complete.
