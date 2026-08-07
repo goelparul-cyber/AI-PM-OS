@@ -226,3 +226,5 @@ This OS was built collaboratively over a weekend by four senior product leaders:
 ## License
 
 MIT. Fork it, adapt it, make it yours. If you build something interesting on top of it, we'd love to hear about it.
+
+Run into issues? Open a GitHub Issue on this repo.
