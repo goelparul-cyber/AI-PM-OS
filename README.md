@@ -52,7 +52,7 @@ what we know     what we do        what we check    what we remember
 
 **Skills** — each skill has three files: `SKILL.md` (the process), `checklist.md` (execution guide), and `validator.md` (quality gate). The skill runs the checklist during execution and the validator before delivery.
 
-**Sub-agents** — seven reviewer personas (Engineering, Design, Executive, Legal, Data, GTM, Customer) that critique any document from their specific lens. Used by `/review-panel` and `/prd-draft`.
+**Sub-agents** — seven reviewer personas (Engineering, Design, Executive, Legal, Data, GTM, Customer) critique a PRD draft. three review personas (Engineer, Designer and Executive) review your executive status updates. 
 
 **Primer** — a session memory file (`primer.md`) that lets Claude pick up where you left off. `/endsession` writes a handoff summary. `/startsession` loads it and surfaces open threads.
 
@@ -60,7 +60,7 @@ what we know     what we do        what we check    what we remember
 
 ## Getting started
 
-### Option 1 — Claude Projects (recommended, no code required)
+### Option 1 — Claude Projects 
 1. Create a new Project in Claude.ai
 2. Upload all files to Project content
 3. Start a new conversation and type `/startsession`
@@ -109,9 +109,6 @@ behind iOS...
 /prd-draft Add real-time pro availability to the booking flow
 ```
 
-```
-/review-panel [paste any document]
-```
 
 If input is missing key details, the skill asks one consolidated question before drafting. It never invents information — missing data is marked `[TBD]`.
 
