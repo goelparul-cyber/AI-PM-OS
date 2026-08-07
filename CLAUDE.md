@@ -1,4 +1,4 @@
-# CLAUDE.md: PMOS (PM Operating System)
+ this # CLAUDE.md: PMOS (PM Operating System)
 
 > **Auto-loaded every session. This file is the brain.**
 > Designate one owner for this file. All edits should be reviewed before merging.
@@ -24,7 +24,6 @@ The OS also has a continuity layer (`primer.md`) that lets sessions pick up wher
 
 ```
 PERCEPTION       EXECUTION         CRITIQUE         CONTINUITY
-context-library/ skills/           sub-agents/      primer.md
 what we know     what we do        what we check    what we remember
 ```
 
@@ -36,7 +35,7 @@ The brain (this file) routes every user request to one or more of these layers.
 
 When the user sends a message, route in this order:
 
-1. **Explicit slash command** (`/prd-draft`, `/interview-synth`, `/xfn-update`, `/exec-update`, `/endsession`, `/startsession`): load the matching skill or primer file. Run it.
+1. **Explicit slash command** (`/prd-draft`, `/interview-synth`, `/xfn-update`, `/exec-update`,  `/endsession`, `/startsession`): load the matching skill or primer file. Run it.
 
 2. **Implicit skill match** (no slash, but the request fits a skill):
    - Words like "draft a PRD", "spec for", "product requirements": route to /prd-draft
@@ -94,6 +93,8 @@ Every output from this OS, including conversational replies and clarifying quest
 4. **Confidence note required.** Every output ends with one line: `CONFIDENCE: [High / Medium / Low]. [one-line reason]`. Confidence reflects input quality, not output polish.
 
 5. **Read context-library before generating.** Skills that produce stakeholder-facing content must check `context-library/voice.md` and `context-library/stakeholders.md` first.
+
+6. **Check context-library files and primer.md Layer 1 are filled in before drafting.** A file is still a template if it contains placeholder brackets like `[Company name]` or `[TBD]` in place of real values. If a required context-library file, or primer.md Layer 1, is still a template, stop before drafting. Tell the user which file needs to be filled in and do not draft against placeholder content. primer.md Layer 2 is exempt from this check: it starts blank on a fresh install and that is expected, not a template someone forgot to fill in.
 
 ---
 
