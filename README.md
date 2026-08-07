@@ -1,7 +1,7 @@
 # AI PM OS
 ### A Claude-powered operating system for product managers
 
-AI PM OS turns five recurring PM jobs into 10-minute jobs. It works by loading your company context — your users, stakeholders, voice, and decisions — into Claude once, then routing every request to a skill designed specifically for that job.
+AI PM OS turns four recurring PM jobs into 10-minute jobs. It works by loading your company context — your users, stakeholders, voice, and decisions — into Claude once, then routing every request to a skill designed specifically for that job.
 
 The result: outputs that sound like they came from your team, not a generic AI.
 
