@@ -11,14 +11,12 @@ The result: outputs that sound like they came from your team, not a generic AI.
 
 | Skill | Input | Output |
 |-------|-------|--------|
-| `/prd-draft` | One-line idea | Full PRD with diagrams, user stories, metrics, and a working prototype — plus a 7-perspective review panel |
+| `/prd-draft` | One-line idea | Full PRD with diagrams, user stories, metrics, and a working prototype |
 | `/interview-synth` | Raw transcript | Structured synthesis with verified verbatim quotes |
 | `/xfn-update` | Messy project notes | Status update organized by cross-functional team |
 | `/exec-update` | Project state | 1-pager a Sr Director reads in under 2 minutes |
 
 Each skill reads your context library before generating output. Every output includes a confidence score and a validator report.
-
-> **About the review panel:** `/prd-draft` includes a built-in review panel that critiques your PRD from 7 lenses — Engineering, Design, Executive, Legal, Data, GTM, and Customer. Each reviewer runs in parallel and flags Critical, Important, and Consider issues. The reviewers live in `skills/prd-draft/sub-agents/`.
 
 ---
 
@@ -29,8 +27,6 @@ The PM drill: paste context into Claude, explain your PRD structure, get somethi
 What if the context, the structure, and the quality bar were baked in — and stayed current automatically?
 
 The real unlock isn't any single skill. It's the context library and automated pipelines. When AI knows your company's systems, your stakeholder approval chains, and your writing style, output quality improves dramatically.
-
-We stress-tested it on a PRD for a complex multi-system feature — the kind where one change touches 8 systems and 7 teams, and the PM building it doesn't know half the dependencies. The review panel caught a dependency contradiction in the doc, questioned the rollout strategy, and flagged a compliance risk nobody had raised. From prompts we wrote in a day.
 
 This is what "AI-native PM" actually means: using AI as a system, where context stays current, skills check their own work, and reviewers catch what you miss.
 
@@ -44,7 +40,6 @@ The OS has four layers:
 
 ```
 PERCEPTION       EXECUTION         CRITIQUE         CONTINUITY
-context-library/ skills/           sub-agents/      primer.md
 what we know     what we do        what we check    what we remember
 ```
 
@@ -52,7 +47,7 @@ what we know     what we do        what we check    what we remember
 
 **Skills** — each skill has three files: `SKILL.md` (the process), `checklist.md` (execution guide), and `validator.md` (quality gate). The skill runs the checklist during execution and the validator before delivery.
 
-**Sub-agents** — seven reviewer personas (Engineering, Design, Executive, Legal, Data, GTM, Customer) critique a PRD draft. three review personas (Engineer, Designer and Executive) review your executive status updates. 
+**Sub-agents** — three reviewer personas (Engineering, Design, Executive) review your executive status updates before delivery.
 
 **Primer** — a session memory file (`primer.md`) that lets Claude pick up where you left off. `/endsession` writes a handoff summary. `/startsession` loads it and surfaces open threads.
 
@@ -110,7 +105,7 @@ behind iOS...
 ```
 
 
-If input is missing key details, the skill asks one consolidated question before drafting. It never invents information — missing data is marked `[TBD]`.
+It never invents information — missing data is marked `[TBD]`.
 
 ---
 
@@ -147,7 +142,10 @@ AI-PM-OS/
 │   ├── users.md + users.example.md
 │   ├── stakeholders.md + stakeholders.example.md
 │   ├── voice.md + voice.example.md
-│   └── decisions.md + decisions.example.md
+│   ├── decisions.md + decisions.example.md
+│   └── interviews/                    — drop raw transcripts here for /interview-synth
+│       ├── interviews-README.md
+│       └── sample-interview.example.md
 ├── skills/
 │   ├── startsession/                  — SKILL.md, checklist.md, validator.md
 │   ├── endsession/                    — SKILL.md, checklist.md, validator.md
@@ -156,9 +154,6 @@ AI-PM-OS/
 │   ├── interview-synth/               — SKILL.md, checklist.md, validator.md
 │   └── prd-draft/                     — SKILL.md, checklist.md, validator.md
 │       └── sub-agents/                — 7 reviewer personas + REVIEW-PANEL.md
-├── interviews/                        — drop raw transcripts here for /interview-synth
-│   ├── README.md
-│   └── sample-interview.example.md
 └── .gitignore
 ```
 
@@ -170,7 +165,7 @@ AI-PM-OS/
 - `/meeting-cleanup` — turns raw meeting notes into decisions, actions, and follow-ups
 - `/competitive-teardown` — structured competitive analysis from a URL or description
 - `/launch-checklist` — pre-launch readiness check across all XFN teams
-- Web UI — a browser-based interface with all skills, review panel, and session memory (prototype included as `pm-os-copilot.jsx`)
+- Web UI — a browser-based interface with all skills and session memory
 
 ---
 
