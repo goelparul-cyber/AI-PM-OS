@@ -1,6 +1,6 @@
 # primer.md — PM OS Memory
 
-> **Instructions:** This file gives Claude memory across sessions. Fill in Layer 1 once and keep it updated as your context evolves. Layer 2 is automatically overwritten at the end of every session by /endsession and reloaded at the start by /startsession. Do not manually edit Layer 2 — let the OS manage it.
+> **Instructions:** This file gives Claude memory across sessions. Fill in Layer 1 once to start; /endsession will also append it automatically whenever you state an explicit preference during a session. Layer 2 is automatically overwritten at the end of every session by /endsession and reloaded at the start by /startsession. Do not manually edit Layer 2 — let the OS manage it.
 
 ---
 

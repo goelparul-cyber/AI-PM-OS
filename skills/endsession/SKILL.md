@@ -39,11 +39,9 @@ If not found: leave Layer 1 unchanged.
 
 > **Note:** Claude cannot detect patterns across previous sessions. Layer 1 auto-updates are limited to explicit preference statements made in the current session. Cross-session pattern detection is a planned v2 feature.
 
-### Step 4 — Output the updated primer.md
-Output the complete updated primer.md — both layers — as a clean markdown block.
-
-**If running in Claude Code:** primer.md is updated automatically.
-**If running in Claude.ai:** Tell the PM: "Copy this into your primer.md file to save your session."
+### Step 4 — Save the updated primer.md
+**If running in Claude Code:** use your file-write tool to update `primer.md` on disk with the new content directly. Do not just print it in chat.
+**If running in Claude.ai:** output the complete updated primer.md — both layers — as a clean markdown block in chat, and tell the PM: "Copy this into your primer.md file to save your session."
 
 ## Output format
-Clean markdown. Both layers. Complete. Ready to copy-paste into primer.md.
+Clean markdown. Both layers. Complete. In Claude Code, written directly to primer.md. In Claude.ai, ready to copy-paste into primer.md.

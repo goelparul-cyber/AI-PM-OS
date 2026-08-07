@@ -14,9 +14,9 @@ The result: outputs that sound like they came from your team, not a generic AI.
 | `/prd-draft` | One-line idea | Full PRD with diagrams, user stories, metrics, and a working prototype |
 | `/interview-synth` | Raw transcript | Structured synthesis with verified verbatim quotes |
 | `/xfn-update` | Messy project notes | Status update organized by cross-functional team |
-| `/exec-update` | Project state | 1-pager a Sr Director reads in under 2 minutes |
+| `/exec-update` | Project state | 1-pager a Sr Director/VP reads in under 2 minutes |
 
-Each skill reads your context library before generating output. Every output includes a confidence score and a validator report.
+Each skill reads your context that lives in the context library before generating output. Every output includes a validator report, and most skills also end with a confidence score.
 
 ---
 
@@ -34,45 +34,73 @@ We built this over a weekend to solve our own problems. It's not a product. It's
 
 ---
 
-## How it works
+## Why this is more than a prompt
 
-The OS has four layers:
+This isn't a clever prompt you paste into ChatGPT or Claude.ai. It's a four-layer
+architecture, and that's what makes it something you can trust to work
+consistently, not just something that looks impressive once.
 
 ```
 PERCEPTION       EXECUTION         CRITIQUE         CONTINUITY
-what we know     what we do        what we check    what we remember
+what it knows    what it does      what it checks   what it remembers
 ```
 
-**Context library** — five files you fill in once: your company, users, stakeholders, voice, and active decisions. Every skill reads these before generating output. This is what makes outputs feel company-specific rather than generic.
+**Perception, what it knows.** Before generating anything, skills read the
+context library: your company, your users, your stakeholders, your voice.
+This is what makes output sound like your team, not a generic AI.
 
-**Skills** — each skill has three files: `SKILL.md` (the process), `checklist.md` (execution guide), and `validator.md` (quality gate). The skill runs the checklist during execution and the validator before delivery.
+**Execution, what it does.** These are the skills, the actual PM jobs:
+drafting a PRD, an exec update, a status update, a research synthesis.
 
-**Sub-agents** — three reviewer personas (Engineering, Design, Executive) review your executive status updates before delivery.
+**Critique, what it checks.** Before output reaches you, every skill runs a
+validator, a quality gate that scores the draft before delivery. `/exec-update`
+goes further: three reviewer personas, engineering, design, and exec, flag
+concerns before you send.
 
-**Primer** — a session memory file (`primer.md`) that lets Claude pick up where you left off. `/endsession` writes a handoff summary. `/startsession` loads it and surfaces open threads.
+**Continuity, what it remembers.** Session memory (`primer.md`) means you're
+not re-explaining your context every time you come back.
+
+Skip any one of these layers and you get something that looks impressive but
+you can't actually rely on.
+
+---
+
+## Prerequisites
+
+**For Option 1 (Claude Projects)**
+- A Claude.ai account with access to Projects (available on paid plans)
+
+**For Option 2 (Claude Code)**
+- [Claude Code](https://claude.com/claude-code) installed
+- An Anthropic account with Claude Code access
+- Git, to clone this repo
 
 ---
 
 ## Getting started
 
-### Option 1 — Claude Projects 
+### Option 1 — Claude Projects
 1. Create a new Project in Claude.ai
-2. Upload all files to Project content
-3. Start a new conversation and type `/startsession`
-4. Fill in your context library files and re-upload them
+2. Download this repo to your computer (Code → Download ZIP on GitHub)
+3. Fill in your `context-library/*.md` files and `primer.md` Layer 1 locally (see "Setting up your context" below)
+4. Upload all files to Project content
+5. Start a new conversation and type `/startsession`
 
 ### Option 2 — Claude Code (most seamless)
 1. Clone this repo
 2. `cd` into the folder
-3. Run `claude` to start Claude Code
-4. Claude Code automatically reads `CLAUDE.md` and loads the full OS
-5. Type `/startsession` to begin
+3. Fill in your `context-library/*.md` files and `primer.md` Layer 1 (see "Setting up your context" below)
+4. Run `claude` to start Claude Code
+5. Claude Code automatically reads `CLAUDE.md` and loads the full OS
+6. Type `/startsession` to begin
 
 ---
 
-## Setting up your context library
+## Setting up your context
 
-The context library is what makes this yours. Before running any skill, fill in these five files:
+This is what makes the OS yours. Before running any skill, fill in six files.
+
+### Context library (five files)
 
 | File | What to add |
 |------|-------------|
@@ -83,6 +111,15 @@ The context library is what makes this yours. Before running any skill, fill in 
 | `context-library/decisions.md` | Key decisions made, alternatives considered, open questions |
 
 Each file has a blank template and a filled-in example (`.example.md`) to show you what good looks like. Fill in the templates and leave the examples for reference.
+
+### primer.md Layer 1
+
+`primer.md` has two layers. Layer 1 is persistent context about you: your name,
+role, company, and how you like to work. Fill it in once to start;
+`/endsession` also auto-appends it whenever you make an explicit preference
+statement during a session (e.g. "I always...", "from now on..."). Layer 2 is
+session memory, automatically written by `/endsession` and read by
+`/startsession`, don't edit it by hand.
 
 ---
 
@@ -104,6 +141,9 @@ behind iOS...
 /prd-draft Add real-time pro availability to the booking flow
 ```
 
+```
+/interview-synth [paste or attach raw customer interview transcript]
+```
 
 It never invents information — missing data is marked `[TBD]`.
 
@@ -115,18 +155,21 @@ Start every session:
 ```
 /startsession
 ```
-Claude loads your last session state and surfaces open threads.
+Claude loads your last session state and surfaces open threads. On your first
+ever run, there's no session to load yet, Claude will instead check that
+`primer.md` Layer 1 and your context library are filled in, and ask you to do
+that first if they aren't.
 
 End every session:
 ```
 /endsession
 ```
-Claude writes a handoff summary to `primer.md` — what you worked on, decisions made, open items, next action.
+Claude writes a handoff summary to `primer.md` — what you worked on, current state, decisions made, open items, next action.
 
 **If using Claude Code:** `primer.md` is updated automatically.
 **If using Claude.ai:** Copy the output into your `primer.md` file manually.
 
-> Layer 1 of `primer.md` (persistent context about you and your preferences) is manually maintained in v1. Automatic cross-session learning is planned for v2.
+> `/endsession` automatically appends Layer 1 with any explicit preference statements you made during the session (e.g. "I always...", "from now on..."). Detecting patterns across past sessions to suggest updates is planned for v2.
 
 ---
 
@@ -173,10 +216,10 @@ AI-PM-OS/
 
 This OS was built collaboratively over a weekend by four senior product leaders:
 
-- [Parul Goel](https://www.linkedin.com/in/pg2121/)
 - [Priyanka Chaturvedi](https://www.linkedin.com/in/priyankachaturvedimit/)
 - [Vidya Sarangapany](https://www.linkedin.com/in/vsara/)
 - [Bhagyashree Prabhakar](https://www.linkedin.com/in/bhagya-prabhakar/)
+- [Parul Goel](https://www.linkedin.com/in/pg2121/)
 
 ---
 

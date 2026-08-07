@@ -122,7 +122,7 @@ If a SKILL.md is missing this header, the skill is not v1-ready.
 
 primer.md is the only file in this OS that gets overwritten each session. Treat it as a working memory file, not a record.
 
-> **Note:** In v1, Layer 1 of primer.md is manually maintained by the PM. Automatic learning and updating of Layer 1 across sessions is a planned v2 feature.
+> **Note:** `/endsession` auto-appends Layer 1 with explicit preference statements made during the session (e.g. "I always...", "from now on..."). Detecting patterns across past sessions to suggest Layer 1 updates is a planned v2 feature.
 
 ---
 

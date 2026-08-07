@@ -1,2 +1,6 @@
 .DS_Store
 **/.DS_Store
+
+context-library/interviews/*.md
+!context-library/interviews/interviews-README.md
+!context-library/interviews/*.example.md
